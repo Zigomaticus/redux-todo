@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+
+import { Router } from './pages/Router'
+import { Nav } from './pages/Nav/Nav'
+import './App.css'
+
+const navItems = [
+  {
+    href: '/todos',
+    title: 'Todos',
+  },
+  {
+    href: '/editor',
+    title: 'Editor',
+  },
+]
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app__container">
+      <Router>
+        <Nav activeKey="/todos" items={navItems} />
+      </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
