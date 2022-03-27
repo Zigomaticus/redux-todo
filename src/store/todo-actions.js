@@ -5,42 +5,35 @@ export const UPDATE_TODO_TEXT = "UPDATE_TODO_TEXT";
 export const UPDATE_TODO_DONE = "UPDATE_TODO_DONE";
 export const DELETE_TODO = "DELETE_TODO";
 
-export const addTodo = (text) => {
-  return {
-    type: ADD_TODO,
-    payload: {
-      id: uuid(),
-      text: text,
-      done: false,
-    },
+const makeActionCreater = (type, keys, valueProviders = {}) => {
+  return (...values) => {
+    let payload = {};
+    keys.forEach((_, index) => {
+      payload[keys[index]] = values[index];
+    });
+    Object.entries(valueProviders).forEach(([key, providerFn]) => {
+      payload[key] = providerFn();
+    });
+    return {
+      type,
+      payload,
+    };
   };
 };
 
-export const updateTodoText = (id, text) => {
-  return {
-    type: UPDATE_TODO_TEXT,
-    payload: {
-      id,
-      text,
-    },
-  };
-};
+export const addTodo = makeActionCreater(ADD_TODO, ["text"], {
+  id: () => uuid(),
+  done: () => false,
+});
 
-export const updateTodoDone = (id, done) => {
-  return {
-    type: UPDATE_TODO_DONE,
-    payload: {
-      id,
-      done,
-    },
-  };
-};
+export const updateTodoText = makeActionCreater(UPDATE_TODO_TEXT, [
+  "id",
+  "text",
+]);
 
-export const deleteTodo = (id) => {
-  return {
-    type: DELETE_TODO,
-    payload: {
-      id,
-    },
-  };
-};
+export const updateTodoDone = makeActionCreater(UPDATE_TODO_DONE, [
+  "id",
+  "done",
+]);
+
+export const deleteTodo = makeActionCreater(DELETE_TODO, ["id"]);
