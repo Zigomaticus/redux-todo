@@ -8,6 +8,7 @@ import {
   updateTodoText,
   updateTodoDone,
   deleteTodo,
+  UPDATE_TODO_TEXT,
 } from "../../store/todo-actions";
 
 export function EditorContainer() {
@@ -15,7 +16,13 @@ export function EditorContainer() {
   const dispatch = useDispatch();
 
   const handleTextChange = (item, text) => {
-    dispatch(updateTodoText(item.id, text));
+    dispatch({
+      type: UPDATE_TODO_TEXT,
+      payload: {
+        id: item.id,
+        text,
+      },
+    });
   };
 
   const handleToggle = (item, done) => {
