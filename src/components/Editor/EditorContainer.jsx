@@ -9,6 +9,7 @@ import {
   updateTodoDone,
   deleteTodo,
   UPDATE_TODO_TEXT,
+  DELETE_TODO,
 } from "../../store/todo-actions";
 
 export function EditorContainer() {
@@ -30,7 +31,18 @@ export function EditorContainer() {
   };
 
   const handleRemove = (item) => {
-    dispatch(deleteTodo(item.id));
+    // dispatch(deleteTodo(item.id))
+    // eslint-disable-next-line
+    const result = dispatch({
+      type: DELETE_TODO,
+      payload: {
+        id: item.id,
+      },
+      meta: {
+        delayMs: 1000,
+      },
+    });
+    // result.clearScheduler()
   };
 
   return (

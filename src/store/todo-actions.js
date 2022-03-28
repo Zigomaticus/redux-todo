@@ -4,6 +4,7 @@ export const ADD_TODO = "ADD_TODO";
 export const UPDATE_TODO_TEXT = "UPDATE_TODO_TEXT";
 export const UPDATE_TODO_DONE = "UPDATE_TODO_DONE";
 export const DELETE_TODO = "DELETE_TODO";
+export const INIT_TODOS = 'INIT_TODOS'
 
 const makeActionCreater = (type, keys, valueProviders = {}) => {
   return (...values) => {

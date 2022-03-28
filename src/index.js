@@ -7,9 +7,17 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
 import { rootReducer } from "./store/reducers";
-import { logger } from "./middleware/logger";
+import { logger, scheduler, extractor, resetter } from "./middleware";
+import thunk from "redux-thunk";
 
-const store = createStore(rootReducer, applyMiddleware(logger));
+const store = createStore(
+  rootReducer,
+  applyMiddleware(
+    extractor(logger, "logger"),
+    extractor(scheduler, "clearScheduler"),
+    extractor(thunk, "thunk")
+  )
+);
 
 ReactDOM.render(
   <React.StrictMode>
